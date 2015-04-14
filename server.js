@@ -1,12 +1,10 @@
-var WebSocketServer = require('ws').Server
-  , wss = new WebSocketServer({port: 1337});
+var app = require('express')();
+var http = require('http').Server(app);
 
-console.log('INIT - Listening on 1337.');
+app.get('/', function(req, res){
+  res.send('<h1>Hello world</h1>');
+});
 
-wss.on('connection', function(ws) {
-    ws.on('message', function(message) {
-        console.log('received: %s', message);
-	console.log('ws is: ' + ws);
-    });
-    ws.send('something');
+http.listen(3000, function(){
+  console.log('listening on *:3000');
 });
