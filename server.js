@@ -1,6 +1,12 @@
-var http = require('http')
-var port = process.env.PORT || 1337;
-http.createServer(function(req, res) {
-  res.writeHead(200, { 'Content-Type': 'text/plain' });
-  res.end('Hello World\n');
-}).listen(port);
+var WebSocketServer = require('ws').Server
+  , wss = new WebSocketServer({port: 1337});
+
+console.log('INIT - Listening on 1337.');
+
+wss.on('connection', function(ws) {
+    ws.on('message', function(message) {
+        console.log('received: %s', message);
+	console.log('ws is: ' + ws);
+    });
+    ws.send('something');
+});
